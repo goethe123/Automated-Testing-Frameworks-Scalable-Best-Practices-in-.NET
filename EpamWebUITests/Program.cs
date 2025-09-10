@@ -60,14 +60,18 @@ class EpamSearchEnter
         }
         catch (Exception ex)
         {
-            Console.WriteLine($"❌ ERROR: {ex.Message}");
+            Console.WriteLine($" ERROR: {ex.Message}");
         }
         finally
         {
             try { driver.Quit(); }
             catch
             {
-                try { driver.Close(); } catch { /* ignore */ }
+                try { driver.Close(); }
+                catch
+                {
+                    
+                }
                 driver.Dispose();
             }
         }
