@@ -37,7 +37,7 @@ class EpamSearchEnter
                 ExpectedConditions.ElementToBeClickable(
                     By.CssSelector(".header-search__button.header__icon")));
             searchIcon.Click();
-
+            
             // Esperar panel + input
             wait.Until(ExpectedConditions.ElementIsVisible(
                 By.CssSelector(".header-search__panel")));
