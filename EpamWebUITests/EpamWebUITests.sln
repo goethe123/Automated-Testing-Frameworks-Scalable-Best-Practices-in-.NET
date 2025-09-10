@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.14.36414.22 d17.14
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EpamWebUITests", "EpamWebUITests.csproj", "{AB1965E8-BB32-9AE5-C8EA-C00B6112BAE2}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{AB1965E8-BB32-9AE5-C8EA-C00B6112BAE2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{AB1965E8-BB32-9AE5-C8EA-C00B6112BAE2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{AB1965E8-BB32-9AE5-C8EA-C00B6112BAE2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{AB1965E8-BB32-9AE5-C8EA-C00B6112BAE2}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {63D265D1-ADE3-4D2E-93DB-0B3E0B79E50A}
+	EndGlobalSection
+EndGlobal
