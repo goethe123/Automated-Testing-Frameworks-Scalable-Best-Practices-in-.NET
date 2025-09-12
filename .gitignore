@@ -1,18 +1,30 @@
 # Visual Studio
 .vs/
-*.user
 *.suo
+*.user
+*.userosscache
 *.sln.docstates
 
-# Build output
+# Build results
 bin/
 obj/
 TestResults/
-*.coverage
-*.coveragexml
+*.log
+*.tlog
+*.cache
+*.pdb
 
-# Otros comunes
-*.ide/
-*.userosscache
-*.rsuser
-*.vscode/
+# NuGet
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+
+# IDEs
+.vscode/
+.idea/
+
+# Others
+*.dbmdl
+*.bak
+*.tmp
