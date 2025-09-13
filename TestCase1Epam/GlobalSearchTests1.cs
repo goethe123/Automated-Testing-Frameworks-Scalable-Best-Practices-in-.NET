@@ -36,10 +36,10 @@ namespace TestCase1Epam
            
             try
             {
-                var cookieBtn = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+                new WebDriverWait(driver, TimeSpan.FromSeconds(3))
                     .Until(ExpectedConditions.ElementToBeClickable(
-                        By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler")));
-                cookieBtn.Click();
+                        By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler"))).Click();
+                
             }
             catch (Exception ex)
             {
@@ -48,8 +48,8 @@ namespace TestCase1Epam
             }
 
             // 3. Click en el Careers button
-            var careersLink = wait.Until(driver => driver.FindElement(By.LinkText("Careers")));
-            careersLink.Click();
+            wait.Until(driver => driver.FindElement(By.LinkText("Careers"))).Click();
+            
 
             // 4. Meter los inputs de los lenguajes
             var keywordInput = wait.Until(driver => driver.FindElement(By.Id("new_form_job_search-keyword")));
@@ -57,20 +57,19 @@ namespace TestCase1Epam
             keywordInput.SendKeys(keyword);
 
             // 5. Seleccionar "All Locations"
-            var locationDropDown = wait.Until(d => d.FindElement(By.ClassName("select2-selection__rendered")));
-            locationDropDown.Click();
+             wait.Until(d => d.FindElement(By.ClassName("select2-selection__rendered"))).Click();
+           
 
-            var allLocationsOption = wait.Until(drive => drive.FindElement(By.CssSelector("li[title='All Locations']")));
-            allLocationsOption.Click();
+             wait.Until(drive => drive.FindElement(By.CssSelector("li[title='All Locations']"))).Click();
+           
 
             // 6. Seleccionar "Remote"
-            var remoteChecBox = wait.Until(d => d.FindElement(By.XPath("//label[contains(@class,'checkbox-custom-label') and contains(.,'Remote')]")));
+             wait.Until(d => d.FindElement(By.XPath("//label[contains(@class,'checkbox-custom-label') and contains(.,'Remote')]"))).Click();
 
-            remoteChecBox.Click();
 
             // 7. Click en el Find btn
-            var findButton = wait.Until(d => d.FindElement(By.CssSelector("button.job-search-button-transparent-23")));
-            findButton.Click();
+           wait.Until(d => d.FindElement(By.CssSelector("button.job-search-button-transparent-23"))).Click();
+            
 
             // 8. Encontrar el listado de resultados
            
@@ -87,8 +86,8 @@ namespace TestCase1Epam
             // Esperar hasta que al menos un "View and apply" href esté disponible
             wait.Until(d => d.FindElements(By.CssSelector("a.search-result__item-apply-23")).Count > 0);
 
-            var firstApplyButton = wait.Until(d => d.FindElement(By.XPath("(//a[contains(@class,'search-result__item-apply-23')])[1]")));
-            firstApplyButton.Click();
+          wait.Until(d => d.FindElement(By.XPath("(//a[contains(@class,'search-result__item-apply-23')])[1]"))).Click();
+           
 
             //paso 9 ya ver si esta la keyword en la pagina minimo una vez
             var bodyText = driver.FindElement(By.TagName("body")).Text;
@@ -160,9 +159,9 @@ namespace TestCase2Epam
             }
 
             // abrir buscador
-            var searchIcon = wait.Until(ExpectedConditions.ElementToBeClickable(
-                By.CssSelector(".header-search__button.header__icon")));
-            searchIcon.Click();
+           wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector(".header-search__button.header__icon"))).Click();
+            
 
             // input búsqueda
             var searchInput = wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")));
@@ -170,9 +169,9 @@ namespace TestCase2Epam
             searchInput.SendKeys(keyword);
 
             // botón Find
-            var findButton = wait.Until(ExpectedConditions.ElementToBeClickable(
-                By.CssSelector("button.custom-search-button")));
-            findButton.Click();
+             wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector("button.custom-search-button"))).Click();
+           
 
             // esperar resultados
             wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".search-results__items")));
@@ -189,6 +188,7 @@ namespace TestCase2Epam
                 string.Join("\n", resultLinks.Select(l => l.Text)));
         }
 
+        //tear down
         [TearDown]
         public void Teardown()
         {
