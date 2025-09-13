@@ -24,13 +24,8 @@ namespace TestCase1Epam
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-        [TearDown]
-        public void TearDown()
-        {
-            driver?.Dispose();
-        }
 
-        //[TestCase("java")]
+        [TestCase("java")]
         [TestCase("python")]
         public void ValidateUserCanSearchPosition(string keyword)
         {
@@ -46,7 +41,11 @@ namespace TestCase1Epam
                         By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler")));
                 cookieBtn.Click();
             }
-            catch { }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine("Cookie acceptance button not found or not clickable: ");
+                TestContext.Out.WriteLine(ex.Message);
+            }
 
             // 3. Click en el Careers button
             var careersLink = wait.Until(driver => driver.FindElement(By.LinkText("Careers")));
@@ -94,22 +93,108 @@ namespace TestCase1Epam
             //paso 9 ya ver si esta la keyword en la pagina minimo una vez
             var bodyText = driver.FindElement(By.TagName("body")).Text;
 
-            if (bodyText.ToLower().Contains(keyword.ToLower()))
-            {
-                Console.WriteLine($" LA KEYWORD '{keyword}' SÍ SE ENCONTRÓ.");
-            }
-            else
-            {
-                Console.WriteLine($" La keyword '{keyword}' NO se encontró en la página.");
-            }
-
-           
             Assert.That(bodyText.ToLower(), Does.Contain(keyword.ToLower()),
                 $"Expected keyword '{keyword}' not found in job description.");
 
+        }
 
+        [TearDown]
+        public void TearDown()
+        {
+            driver?.Dispose();
+            driver?.Quit();
+        }
 
+    }
+}
 
+namespace TestCase2Epam
+{
+    [TestFixture]
+    public class GlobalSearchTests
+    {
+        private IWebDriver driver;
+        private WebDriverWait wait;
+
+        [SetUp]
+        public void Setup()
+        {
+            var options = new ChromeOptions();
+            options.AddArgument("--start-maximized");
+
+            // Usar WebDriverManager para descargar el ChromeDriver correcto
+            new WebDriverManager.DriverManager().SetUpDriver(
+                new WebDriverManager.DriverConfigs.Impl.ChromeConfig()
+            );
+
+            driver = new ChromeDriver(options);
+
+            // Implicit wait
+            driver.Manage().Timeouts().ImplicitWait = TimeSpan.FromSeconds(5);
+            wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10))
+            {
+                PollingInterval = TimeSpan.FromMilliseconds(250),
+                Message = "Element did not appeared"
+            };
+        }
+
+        [TestCase("automation")]
+        [TestCase("blockchain")]
+        [TestCase("cloud")]
+        public void Validate_Global_Search_Returns_Correct_Results(string keyword)
+        {
+            driver.Navigate().GoToUrl("https://www.epam.com");
+
+            // aceptar cookies si aparecen
+            try
+            {
+                var cookieBtn = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+                    .Until(ExpectedConditions.ElementToBeClickable(
+                        By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler")));
+                cookieBtn.Click();
+            }
+            catch (Exception ex)
+            {
+                TestContext.Out.WriteLine("Cookie acceptance button not found or not clickable: ");
+                TestContext.Out.WriteLine(ex.Message);
+            }
+
+            // abrir buscador
+            var searchIcon = wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector(".header-search__button.header__icon")));
+            searchIcon.Click();
+
+            // input búsqueda
+            var searchInput = wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")));
+            searchInput.Clear();
+            searchInput.SendKeys(keyword);
+
+            // botón Find
+            var findButton = wait.Until(ExpectedConditions.ElementToBeClickable(
+                By.CssSelector("button.custom-search-button")));
+            findButton.Click();
+
+            // esperar resultados
+            wait.Until(ExpectedConditions.ElementIsVisible(By.CssSelector(".search-results__items")));
+
+            var resultLinks = driver.FindElements(By.CssSelector(".search-results__item a"));
+
+            // validar con LINQ
+            bool allContainKeyword = resultLinks
+                .Select(link => link.Text.ToLower())
+                .All(text => text.Contains(keyword.ToLower()));
+
+            Assert.That(allContainKeyword, Is.True,
+                $"some results does not contain the '{keyword} keyword on its title'.\n" +
+                string.Join("\n", resultLinks.Select(l => l.Text)));
+        }
+
+        [TearDown]
+        public void Teardown()
+        {
+            try { driver.Quit(); } catch { }
+            driver?.Dispose();
         }
     }
 }
+
