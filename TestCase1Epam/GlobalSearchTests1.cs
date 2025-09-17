@@ -75,12 +75,8 @@ namespace TestCase1Epam
            
             wait.Until(d => d.FindElements(By.CssSelector("li.search-result__item")).Count > 0);
 
-            // encontrar job cards y verificar que si haya
             var jobCards = driver.FindElements(By.CssSelector("li.search-result__item"));
-            ClassicAssert.IsTrue(jobCards.Count > 0, "No job listings found.");
-
-            // Tomar el primer job card lo cual creo que no sirve de mucho
-            var latestJob = jobCards[0];
+            ClassicAssert.IsTrue(jobCards.Any(), "No job listings found.");
 
             // Buscar el btn o link de Apply dentro del primer job
             // Esperar hasta que al menos un "View and apply" href esté disponible
@@ -147,10 +143,10 @@ namespace TestCase2Epam
             // aceptar cookies si aparecen
             try
             {
-                var cookieBtn = new WebDriverWait(driver, TimeSpan.FromSeconds(3))
+                new WebDriverWait(driver, TimeSpan.FromSeconds(3))
                     .Until(ExpectedConditions.ElementToBeClickable(
-                        By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler")));
-                cookieBtn.Click();
+                        By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler"))).Click();
+
             }
             catch (Exception ex)
             {
@@ -159,17 +155,18 @@ namespace TestCase2Epam
             }
 
             // abrir buscador
-           wait.Until(ExpectedConditions.ElementToBeClickable(
+            wait.Until(ExpectedConditions.ElementToBeClickable(
                 By.CssSelector(".header-search__button.header__icon"))).Click();
-            
+
 
             // input búsqueda
-            var searchInput = wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")));
-            searchInput.Clear();
-            searchInput.SendKeys(keyword);
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")))
+            .Clear();
+            wait.Until(ExpectedConditions.ElementToBeClickable(By.Name("q")))
+                .SendKeys(keyword);
 
             // botón Find
-             wait.Until(ExpectedConditions.ElementToBeClickable(
+            wait.Until(ExpectedConditions.ElementToBeClickable(
                 By.CssSelector("button.custom-search-button"))).Click();
            
 
