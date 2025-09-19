@@ -37,6 +37,7 @@ namespace TestCase1Epam.Pages
         {
             Click(By.CssSelector("button.job-search-button-transparent-23"));
         }
+        //siempre meter el wait until que en este caso se trajo de base page
 
         public void ScrollResults()
         {

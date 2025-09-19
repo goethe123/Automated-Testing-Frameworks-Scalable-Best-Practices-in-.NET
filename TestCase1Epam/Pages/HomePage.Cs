@@ -19,9 +19,11 @@ namespace TestCase1Epam.Pages
             {
                 Click(By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler"));
             }
+            //pelon
             catch { }
         }
 
+        //careers
         public void GoToCareers() => Click(By.LinkText("Careers"));
 
         public void OpenSearch()
@@ -31,6 +33,7 @@ namespace TestCase1Epam.Pages
 
         public void Search(string keyword)
         {
+            //cambiar name  q por otro 
             var input = WaitAndFind(By.Name("q"));
             input.Clear();
             input.SendKeys(keyword);

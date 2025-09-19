@@ -15,7 +15,7 @@ namespace TestCaseEpam.Tests
         [SetUp]
         public void Setup()
         {
-            downloadPath = @"C:\Users\goeth\Downloads";
+            downloadPath = @"C:\Users\GoetheRamirez\Downloads";
 
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
@@ -47,6 +47,7 @@ namespace TestCaseEpam.Tests
 
             search.OpenFirstApplyLink();
             Assert.That(search.DescriptionContainsKeyword(keyword), Is.True);
+            //siempre las validaciones en el test case
         }
 
         // Test #2:  search validations
@@ -95,6 +96,11 @@ namespace TestCaseEpam.Tests
                 Thread.Sleep(500);
             }
             return false;
+
+            //este metodo de wait debria de ir en en otra clase llamada utils y jalarlo aca, tambien se puede meter alla el file path
+            //for = si no ha terminado de descargarse el archivo espera medio segundo hasta / es un * 2 por que espera medio segundo entonces espera un segundo
+            //completo, buscar otros metodos de espera (librerias) este funciona pero esta muy piedra
+            //basepage para todos los metodos que se comparten entre paginas, clicks, waits, inputs, etc todo para no crear siempre los metodos en cada object
         }
 
         //TestCase 4
@@ -116,6 +122,7 @@ namespace TestCaseEpam.Tests
             string ArticleTitle = insights.TakeNewTitle();
 
             Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle),$" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
+            //asi es como se deben de hacer las validaciones, se jala el metodo y luego la validacion en test
         }
 
             

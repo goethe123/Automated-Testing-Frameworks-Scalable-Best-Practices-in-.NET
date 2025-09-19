@@ -29,5 +29,7 @@ namespace TestCase1Epam.Pages
         {
             Wait.Until(ExpectedConditions.ElementToBeClickable(locator)).Click();
         }
+
+        //para todas las clases dependeran de base page, metodos que compartiran siempre se declaran aqui, solo los hijos acceden a ella
     }
 }
