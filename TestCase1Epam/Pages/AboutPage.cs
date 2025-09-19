@@ -13,26 +13,22 @@ namespace TestCase1Epam.Pages
 
         public void GoToAbout()
         {
-            Wait.Until(ExpectedConditions
-                .ElementToBeClickable(By.XPath("//*[@id=\"wrapper\"]/div[2]/div[1]/header/div/div/nav/ul/li[4]/span[1]/a")))
-                .Click();
+            Wait.Until(ExpectedConditions.ElementToBeClickable(By.XPath("//*[@id=\"wrapper\"]/div[2]/div[1]/header/div/div/nav/ul/li[4]/span[1]/a"))).Click();
         }
 
         public void ScrollToDownloadButton()
         {
-            var downloadButton = Wait.Until(ExpectedConditions.ElementExists(
-                By.CssSelector("a.button-ui-23.btn-focusable")));
+            var downloadButton = Wait.Until(
+                ExpectedConditions.ElementExists(By.CssSelector("a.button-ui-23.btn-focusable")));
 
-            ((IJavaScriptExecutor)Driver).ExecuteScript("arguments[0].scrollIntoView(true);", downloadButton);
+            var actions = new Actions(Driver);
+            actions.MoveToElement(downloadButton).Perform();
         }
+
 
         public void ClickDownload()
         {
-            // 🔹 Espera y hace clic en el botón Download
-            var downloadButton = Wait.Until(ExpectedConditions
-                .ElementToBeClickable(By.CssSelector("a.button-ui-23.btn-focusable")
-));
-
+            var downloadButton = Wait.Until(ExpectedConditions.ElementToBeClickable(By.CssSelector("a.button-ui-23.btn-focusable")));
             downloadButton.Click();
         }
     }

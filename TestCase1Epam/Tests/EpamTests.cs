@@ -27,7 +27,7 @@ namespace TestCaseEpam.Tests
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
-        // 🔹 Test #1: Careers
+        // Test #1: 
         [TestCase("java")]
         [TestCase("python")]
         public void ValidateUserCanSearchPosition(string keyword)
@@ -49,7 +49,7 @@ namespace TestCaseEpam.Tests
             Assert.That(search.DescriptionContainsKeyword(keyword), Is.True);
         }
 
-        // 🔹 Test #2: Global search
+        // Test #2:  search validations
         [TestCase("automation")]
         [TestCase("blockchain")]
         [TestCase("cloud")]
@@ -67,7 +67,7 @@ namespace TestCaseEpam.Tests
             Assert.That(search.ResultsContainKeyword(keyword), Is.True);
         }
 
-        // 🔹 Test #3: File download
+        //  Test #3: File download Validation
         [TestCase("EPAM_Corporate_Overview_Sept_25.pdf")]
         public void Validate_File_Download(string expectedFileName)
         {
@@ -96,6 +96,30 @@ namespace TestCaseEpam.Tests
             }
             return false;
         }
+
+        //TestCase 4
+
+        [Test]
+        public void ValidateCarouselTitle()
+        {
+            var home = new HomePage(driver, wait);
+            var insights = new InsightsPage(driver, wait);
+
+            driver.Navigate().GoToUrl("https://www.epam.com/");
+            home.AcceptCookiesIfPresent();
+            insights.GoToInsights();
+
+            insights.ClickSwipeButton();
+
+            string CarouselTitle = insights.FindArticleTitle();
+            insights.ClickReadMoreButton();
+            string ArticleTitle = insights.TakeNewTitle();
+
+            Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle),$" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
+        }
+
+            
+        
 
         [TearDown]
         public void TearDown()

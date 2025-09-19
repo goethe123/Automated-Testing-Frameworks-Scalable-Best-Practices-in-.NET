@@ -41,7 +41,7 @@ namespace TestCase1Epam.Pages
         public void ScrollResults()
         {
             var actions = new Actions(Driver);
-            actions.ScrollByAmount(0, 600).Perform(); // Actions API scroll
+            actions.ScrollByAmount(0, 600).Perform(); 
         }
     }
 }
