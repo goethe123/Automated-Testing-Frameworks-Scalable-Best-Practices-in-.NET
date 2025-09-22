@@ -11,7 +11,7 @@ using System.Linq;
 
 namespace TestCase1Epam.Pages
 {
-    public class CareersPage : BasePage
+    public partial class CareersPage : BasePage
     {
         public CareersPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
@@ -39,10 +39,14 @@ namespace TestCase1Epam.Pages
         }
         //siempre meter el wait until que en este caso se trajo de base page
 
-        public void ScrollResults()
+        public void Scroll()
         {
+           
             var actions = new Actions(Driver);
-            actions.ScrollByAmount(0, 600).Perform(); 
+            actions.ScrollByAmount(0, 820).Perform(); 
         }
+
+
+        
     }
 }

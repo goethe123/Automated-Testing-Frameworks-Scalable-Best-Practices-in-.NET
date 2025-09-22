@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
@@ -13,22 +14,24 @@ namespace TestCase1Epam.Pages
     {
         protected readonly IWebDriver Driver;
         protected readonly WebDriverWait Wait;
+        protected Actions Actions => new Actions(Driver);
+
 
         protected BasePage(IWebDriver driver, WebDriverWait wait)
         {
             Driver = driver;
             Wait = wait;
         }
+        
 
-        protected IWebElement WaitAndFind(By locator)
-        {
-            return Wait.Until(ExpectedConditions.ElementIsVisible(locator));
-        }
-
+       
         protected void Click(By locator)
         {
             Wait.Until(ExpectedConditions.ElementToBeClickable(locator)).Click();
         }
+       
+
+
 
         //para todas las clases dependeran de base page, metodos que compartiran siempre se declaran aqui, solo los hijos acceden a ella
     }

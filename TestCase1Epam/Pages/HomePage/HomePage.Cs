@@ -9,7 +9,7 @@ using System.Linq;
 
 namespace TestCase1Epam.Pages
 {
-    public class HomePage : BasePage
+    public partial class HomePage : BasePage
     {
         public HomePage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
@@ -17,18 +17,22 @@ namespace TestCase1Epam.Pages
         {
             try
             {
-                Click(By.CssSelector("#onetrust-accept-btn-handler, .onetrust-accept-btn-handler"));
+                Click(CookiesButton);
             }
-            //pelon
-            catch { }
+            catch (Exception ex)
+            {
+                NUnit.Framework.TestContext.Out.WriteLine($"[WARN] AcceptCookiesIfPresent failed: {ex.Message}");
+            }
         }
 
-        //careers
-        public void GoToCareers() => Click(By.LinkText("Careers"));
+        public void GoToCareers()
+        {
+            Click(CareersButton);
+        }
 
         public void OpenSearch()
         {
-            Click(By.CssSelector(".header-search__button.header__icon"));
+            Click(SearchIconButton);
         }
 
         public void Search(string keyword)
@@ -37,7 +41,17 @@ namespace TestCase1Epam.Pages
             var input = WaitAndFind(By.Name("q"));
             input.Clear();
             input.SendKeys(keyword);
-            Click(By.CssSelector("button.custom-search-button"));
+            Click(FindButton);
+        }
+
+        public void GoToAbout()
+        {
+            WaitToClickable(AboutButton).Click();
+        }
+
+        public void GoToInsights()
+        {
+            WaitToClickable(InsightsButton).Click();
         }
     }
 
