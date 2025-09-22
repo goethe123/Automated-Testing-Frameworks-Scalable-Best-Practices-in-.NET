@@ -19,16 +19,12 @@ namespace TestCase1Epam.Pages
         private void ScrollToDownloadButton()
         {
             var downloadButton = WaitToExist(DownloadButton);
-            Actions.MoveToElement(downloadButton).Perform();
-            
+            Actions.MoveToElement(downloadButton).Perform(); 
         }
 
         private void ClickDownload()
         {
-
             Click(DownloadButton);
-
-            //variable de uso unico
         }
     }
 }

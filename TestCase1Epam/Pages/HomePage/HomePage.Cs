@@ -37,8 +37,7 @@ namespace TestCase1Epam.Pages
 
         public void Search(string keyword)
         {
-            //cambiar name  q por otro 
-            var input = WaitAndFind(By.Name("q"));
+            var input = WaitAndFind(SearchInput);
             input.Clear();
             input.SendKeys(keyword);
             Click(FindButton);

@@ -8,8 +8,6 @@ namespace TestCase1Epam.Pages
 {
     public  class FileHelpers
     {
-
-        // Ruta por defecto (puedes sobreescribirla en tus tests si quieres)
         public static readonly string DownloadPath = @"C:\Users\GoetheRamirez\Downloads";
 
         public static bool WaitForFileToBeDownloaded(string filePath, int seconds)
@@ -22,9 +20,6 @@ namespace TestCase1Epam.Pages
             }
             return false;
         }
-
-
-
     }
 }
 

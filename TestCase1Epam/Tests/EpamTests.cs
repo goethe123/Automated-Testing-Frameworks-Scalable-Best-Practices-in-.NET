@@ -23,16 +23,12 @@ namespace TestCaseEpam.Tests
             options.AddUserProfilePreference("download.prompt_for_download", false);
             options.AddUserProfilePreference("plugins.always_open_pdf_externally", true);
             options.AddArgument("--start-maximized");
-            options.AddArgument("user-agent=Mozilla/5.0 (Windows NT 10.0; Win64; x64) " +
-                                "AppleWebKit/537.36 (KHTML, like Gecko) " +
-                                "Chrome/117.0.0.0 Safari/537.36");
-
             driver = new ChromeDriver(options);
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
         }
 
         // Test #1: 
-        // [TestCase("java")]
+        [TestCase("java")]
         [TestCase("python")]
         public void ValidateUserCanSearchPosition(string keyword)
         {
@@ -52,14 +48,13 @@ namespace TestCaseEpam.Tests
 
             search.OppenFirstViewAndApplyButton(4);
             Assert.That(search.ReturnResultBody().Contains(keyword.ToLower()));
-            //siempre las validaciones en el test case = LISTO
         }
 
         // Test #2:  search validations FALLAN
         [TestCase("automation")]
         [TestCase("blockchain")]
         [TestCase("cloud")]
-        public void Validate_Global_Search_Returns_Correct_Results(string keyword)
+        public void Validate_Global_Searzch_Returns_Correct_Results(string keyword)
         {
             var home = new HomePage(driver, wait);
             var search = new SearchPage(driver, wait);
@@ -90,16 +85,7 @@ namespace TestCaseEpam.Tests
             Assert.That(fileExists, Is.True, $"File '{expectedFileName}' was not downloaded.");
         }
 
-
-
-        //este metodo de wait debria de ir en en otra clase llamada utils y jalarlo aca, tambien se puede meter alla el file path= LISTO
-        //for = si no ha terminado de descargarse el archivo espera medio segundo hasta / es un * 2 por que espera medio segundo entonces espera un segundo
-        //completo, buscar otros metodos de espera (librerias) este funciona pero esta muy piedra
-        //basepage para todos los metodos que se comparten entre paginas, clicks, waits, inputs, etc todo para no crear siempre los metodos en cada object
-    
-
         //TestCase 4
-
         [Test]
         public void ValidateCarouselTitle()
         {
@@ -112,12 +98,8 @@ namespace TestCaseEpam.Tests
             string CarouselTitle = insights.TakeCarouselElementTitle();
             insights.ClickReadMoreButton();
             string ArticleTitle = insights.TakeArticleTitle();
-            Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle),$" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
-            //asi es como se deben de hacer las validaciones, se jala el metodo y luego la validacion en test
+            Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle), $" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
         }
-
-            
-        
 
         [TearDown]
         public void TearDown()

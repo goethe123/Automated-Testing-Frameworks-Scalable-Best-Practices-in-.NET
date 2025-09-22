@@ -17,31 +17,30 @@ namespace TestCase1Epam.Pages
 
         public void SearchJob(string keyword)
         {
-            var input = WaitAndFind(By.Id("new_form_job_search-keyword"));
+            var input = WaitAndFind(JobSearchKeyword);
             input.Clear();
             input.SendKeys(keyword);
         }
 
         public void SelectAllLocations()
         {
-            Click(By.ClassName("select2-selection__rendered"));
-            Click(By.CssSelector("li[title='All Locations']"));
+            Click(LocationsList);
+            Click(PickAllLocations);
         }
 
         public void SelectRemote()
         {
-            Click(By.XPath("//label[contains(@class,'checkbox-custom-label') and contains(.,'Remote')]"));
+            Click(RemoteCheckbox);
         }
 
         public void ClickFind()
         {
-            Click(By.CssSelector("button.job-search-button-transparent-23"));
+            Click(FindButton);
         }
-        //siempre meter el wait until que en este caso se trajo de base page
+        
 
         public void Scroll()
-        {
-           
+        {          
             var actions = new Actions(Driver);
             actions.ScrollByAmount(0, 820).Perform(); 
         }
