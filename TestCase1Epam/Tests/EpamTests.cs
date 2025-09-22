@@ -15,8 +15,6 @@ namespace TestCaseEpam.Tests
         [SetUp]
         public void Setup()
         {
-           
-
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             options.AddUserProfilePreference("download.default_directory", FileHelpers.DownloadPath);
@@ -35,17 +33,10 @@ namespace TestCaseEpam.Tests
             var home = new HomePage(driver, wait);
             var careers = new CareersPage(driver, wait);
             var search = new SearchPage(driver, wait);
-
             driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
             home.GoToCareers();
-
             careers.SearchJob(keyword);
-            careers.SelectAllLocations();
-            careers.SelectRemote();
-            careers.ClickFind();
-            careers.Scroll();
-
             search.OppenFirstViewAndApplyButton(4);
             Assert.That(search.ReturnResultBody().Contains(keyword.ToLower()));
         }
@@ -58,15 +49,12 @@ namespace TestCaseEpam.Tests
         {
             var home = new HomePage(driver, wait);
             var search = new SearchPage(driver, wait);
-
             driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
-
             home.OpenSearch();
             home.Search(keyword);
-
             Assert.That(search.GetResultsText(), Is.All.Contains(keyword.ToLower()),
-                $"All the results does not contain the keyword: {keyword}");
+            $"All the results does not contain the keyword: {keyword}");
         }
 
         //  Test #3: File download Validation
@@ -75,7 +63,6 @@ namespace TestCaseEpam.Tests
         {
             var home = new HomePage(driver, wait);
             var about = new AboutPage(driver, wait);
-
             driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
             home.GoToAbout();

@@ -15,7 +15,16 @@ namespace TestCase1Epam.Pages
     {
         public CareersPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
 
-        public void SearchJob(string keyword)
+        public void SearchJob(string Keyword)
+        {
+            Scroll();
+            SearchJobKeyword(Keyword);
+            SelectAllLocations();
+            SelectRemote();
+            ClickFindButton();
+        }
+
+        public void SearchJobKeyword(string keyword)
         {
             var input = WaitAndFind(JobSearchKeyword);
             input.Clear();
@@ -33,7 +42,7 @@ namespace TestCase1Epam.Pages
             Click(RemoteCheckbox);
         }
 
-        public void ClickFind()
+        public void ClickFindButton()
         {
             Click(FindButton);
         }
