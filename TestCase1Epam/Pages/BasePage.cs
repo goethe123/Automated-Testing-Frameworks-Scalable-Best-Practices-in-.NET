@@ -24,7 +24,20 @@ namespace TestCase1Epam.Pages
         }
         
 
-       
+        protected IWebElement WaitAndFind(By locator)
+        {
+            return Wait.Until(ExpectedConditions.ElementIsVisible(locator));
+        }
+
+        protected IWebElement WaitToClickable(By locator)
+        {
+            return Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+        }
+
+        protected IWebElement WaitToExist(By locator)
+        {
+            return Wait.Until(ExpectedConditions.ElementExists(locator));
+        }
         protected void Click(By locator)
         {
             Wait.Until(ExpectedConditions.ElementToBeClickable(locator)).Click();
