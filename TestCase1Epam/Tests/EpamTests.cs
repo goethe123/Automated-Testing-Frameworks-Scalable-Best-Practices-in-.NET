@@ -2,14 +2,14 @@
 using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
-using TestCase1Epam.Pages;
-using System;
-using System.IO;
+using TestCase1Epam.Business.Pages;
+using NUnit.Framework;
+using TestCase1Epam.Core.Hooks;
 
-namespace TestCaseEpam.Tests
+namespace TestCase1Epam.Tests
 {
     [TestFixture]
-    public class GlobalSearchTests
+    public class GlobalSearchTests : BaseTest
     {
         private IWebDriver driver;
         private WebDriverWait wait;
@@ -22,7 +22,7 @@ namespace TestCaseEpam.Tests
             Log.Info("Test setup intiated");
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
-            options.AddUserProfilePreference("download.default_directory", FileHelpers.DownloadPath);
+            options.AddUserProfilePreference("download.default_directory", Core.Utils.FileHelpers.DownloadPath);
             options.AddUserProfilePreference("download.prompt_for_download", false);
             options.AddUserProfilePreference("plugins.always_open_pdf_externally", true);
             options.AddArgument("--start-maximized");
@@ -78,8 +78,8 @@ namespace TestCaseEpam.Tests
             home.AcceptCookiesIfPresent();
             home.GoToAbout();
             about.ClickDownloadButton();
-            string filePath = Path.Combine(FileHelpers.DownloadPath, expectedFileName);
-            bool fileExists = FileHelpers.WaitForFileToBeDownloaded(filePath, 15);
+            string filePath = Path.Combine(Core.Utils.FileHelpers.DownloadPath, expectedFileName);
+            bool fileExists = Core.Utils.FileHelpers.WaitForFileToBeDownloaded(filePath, 15);
             Assert.That(fileExists, Is.True, $"File '{expectedFileName}' was not downloaded.");
         }
 

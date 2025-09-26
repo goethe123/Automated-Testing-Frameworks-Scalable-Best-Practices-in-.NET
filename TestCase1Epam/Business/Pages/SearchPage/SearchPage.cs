@@ -1,10 +1,9 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using TestCase1Epam.Pages;
+using TestCase1Epam.Busisness.Pages;
 
-
-namespace TestCase1Epam.Pages
+namespace TestCase1Epam.Business.Pages
 {
     public partial class SearchPage : BasePage
     {

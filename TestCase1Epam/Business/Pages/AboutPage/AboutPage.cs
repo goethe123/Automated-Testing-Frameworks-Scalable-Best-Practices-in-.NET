@@ -3,8 +3,9 @@ using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
 using System;
+using TestCase1Epam.Busisness.Pages;
 
-namespace TestCase1Epam.Pages
+namespace TestCase1Epam.Business.Pages
 {
     public partial class AboutPage : BasePage
     {
