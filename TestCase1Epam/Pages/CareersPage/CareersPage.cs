@@ -18,9 +18,9 @@ namespace TestCase1Epam.Pages
         public void SearchJob(string Keyword)
         {
             Scroll();
-            SearchJobKeyword(Keyword);
             SelectAllLocations();
             SelectRemote();
+            SearchJobKeyword(Keyword);
             ClickFindButton();
         }
 
