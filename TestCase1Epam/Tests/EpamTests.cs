@@ -1,7 +1,10 @@
-﻿using OpenQA.Selenium;
+﻿using log4net;
+using OpenQA.Selenium;
 using OpenQA.Selenium.Chrome;
 using OpenQA.Selenium.Support.UI;
 using TestCase1Epam.Pages;
+using System;
+using System.IO;
 
 namespace TestCaseEpam.Tests
 {
@@ -10,11 +13,13 @@ namespace TestCaseEpam.Tests
     {
         private IWebDriver driver;
         private WebDriverWait wait;
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
 
         [SetUp]
         public void Setup()
         {
+            Log.Info("Test setup intiated");
             var options = new ChromeOptions();
             options.AddArgument("--start-maximized");
             options.AddUserProfilePreference("download.default_directory", FileHelpers.DownloadPath);
@@ -23,6 +28,7 @@ namespace TestCaseEpam.Tests
             options.AddArgument("--start-maximized");
             driver = new ChromeDriver(options);
             wait = new WebDriverWait(driver, TimeSpan.FromSeconds(10));
+            Log.Info("driver intiated and browser oppened");
         }
 
         // Test #1: 
@@ -30,6 +36,7 @@ namespace TestCaseEpam.Tests
         [TestCase("python")]
         public void ValidateUserCanSearchPosition(string keyword)
         {
+            Log.Info($"1st Test, ValidateUserCanSearchPosition with {keyword} keyword");
             var home = new HomePage(driver, wait);
             var careers = new CareersPage(driver, wait);
             var search = new SearchPage(driver, wait);
@@ -39,14 +46,17 @@ namespace TestCaseEpam.Tests
             careers.SearchJob(keyword);
             search.OppenFirstViewAndApplyButton(4);
             Assert.That(search.ReturnResultBody().Contains(keyword.ToLower()));
+            Log.Info("[PASS] ValidateUserCanSearchPosition passed correctly");
         }
 
         // Test #2:  search validations FALLAN
         [TestCase("automation")]
         [TestCase("blockchain")]
         [TestCase("cloud")]
-        public void Validate_Global_Searzch_Returns_Correct_Results(string keyword)
+        public void Validate_Global_Search_Returns_Correct_Results(string keyword)
         {
+            Log.Info($"2nd Test, Validate_Global_Searzch_Returns_Correct_Results with {keyword} keyword");
+
             var home = new HomePage(driver, wait);
             var search = new SearchPage(driver, wait);
             driver.Navigate().GoToUrl("https://www.epam.com/");
@@ -55,6 +65,7 @@ namespace TestCaseEpam.Tests
             home.Search(keyword);
             Assert.That(search.GetResultsText(), Is.All.Contains(keyword.ToLower()),
             $"All the results does not contain the keyword: {keyword}");
+            Log.Info("[PASS] Validate_Global_Searzch_Returns_Correct_Results passed correctly");
         }
 
         //  Test #3: File download Validation
