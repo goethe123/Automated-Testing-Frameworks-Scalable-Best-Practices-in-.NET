@@ -28,8 +28,10 @@ namespace TestCase1Epam.Core.Hooks
             var outcome = TestContext.CurrentContext.Result.Outcome.Status;
             if (outcome == NUnit.Framework.Interfaces.TestStatus.Failed)
             {
-                var screenshotPath = ScreenShotHelper.TakeScreenShot(Driver, TestContext.CurrentContext.Test.Name);
-                Log.Error($"Test failed, screenshot in {screenshotPath}");
+                var browserShot = ScreenshotMaker.TakeBrowserScreenshot( Driver,TestContext.CurrentContext.Test.Name);
+                var fullshot = ScreenshotMaker.TakeFullDisplayScreenshot( TestContext.CurrentContext.Test.Name);
+                Log.Error($"Test failed, Browser Screenshot: {browserShot}");
+                Log.Error($"Test failed, Browser Screenshot: {fullshot}");
             }
         }
         [OneTimeTearDown]
