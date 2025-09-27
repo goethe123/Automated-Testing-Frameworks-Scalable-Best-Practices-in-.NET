@@ -12,7 +12,7 @@
 
   <ItemGroup>
     <None Remove="Log.config" />
-	  <FrameworkReference>"Microsoft.WindowsDesktop.App.WindowsForms"</FrameworkReference>
+	  <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
   </ItemGroup>
 
   <ItemGroup>
