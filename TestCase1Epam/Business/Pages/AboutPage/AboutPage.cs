@@ -9,7 +9,7 @@ namespace TestCase1Epam.Business.Pages
 {
     public partial class AboutPage : BasePage
     {
-        public AboutPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait)
+        public AboutPage(IWebDriver driver) : base(driver)
         { }
         public void ClickDownloadButton()
         {

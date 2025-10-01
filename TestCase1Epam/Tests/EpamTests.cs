@@ -18,9 +18,9 @@ namespace TestCase1Epam.Tests
         public void ValidateUserCanSearchPosition(string keyword)
         {
             Log.Info($"1st Test, ValidateUserCanSearchPosition with {keyword} keyword");
-            var home = new HomePage(Driver, Wait);
-            var careers = new CareersPage(Driver, Wait);
-            var search = new SearchPage(Driver, Wait);
+            var home = new HomePage(Driver);
+            var careers = new CareersPage(Driver);
+            var search = new SearchPage(Driver);
 
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
@@ -29,7 +29,7 @@ namespace TestCase1Epam.Tests
             search.OppenFirstViewAndApplyButton(4);
 
             Assert.That(search.ReturnResultBody().Contains(keyword.ToLower()));
-            Log.Info("[PASS] ValidateUserCanSearchPosition passed correctly");
+            Log.Info($"[PASS] ValidateUserCanSearchPosition passed correctly withthe {keyword} keyword");
         }
 
         // Test #2:  search validations FALLAN
@@ -40,8 +40,8 @@ namespace TestCase1Epam.Tests
         {
             Log.Info($"2nd Test, Validate_Global_Searzch_Returns_Correct_Results with {keyword} keyword");
 
-            var home = new HomePage(Driver, Wait);
-            var search = new SearchPage(Driver, Wait);
+            var home = new HomePage(Driver);
+            var search = new SearchPage(Driver);
 
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
@@ -57,8 +57,8 @@ namespace TestCase1Epam.Tests
         [TestCase("EPAM_Corporate_Overview_Sept_25.pdf")]
         public void Validate_File_Download(string expectedFileName)
         {
-            var home = new HomePage(Driver, Wait);
-            var about = new AboutPage(Driver, Wait);
+            var home = new HomePage(Driver);
+            var about = new AboutPage(Driver);
 
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();
@@ -76,8 +76,8 @@ namespace TestCase1Epam.Tests
         [Test]
         public void ValidateCarouselTitle()
         {
-            var home = new HomePage(Driver, Wait);
-            var insights = new InsightsPage(Driver, Wait);
+            var home = new HomePage(Driver);
+            var insights = new InsightsPage(Driver);
 
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             home.AcceptCookiesIfPresent();

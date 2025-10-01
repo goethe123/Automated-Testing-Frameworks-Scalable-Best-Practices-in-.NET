@@ -13,7 +13,7 @@ namespace TestCase1Epam.Business.Pages
     public partial class InsightsPage : BasePage
 
     {
-        public InsightsPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait)
+        public InsightsPage(IWebDriver driver) : base(driver)
         {}      
         public void ClickSwipeButton()
         {

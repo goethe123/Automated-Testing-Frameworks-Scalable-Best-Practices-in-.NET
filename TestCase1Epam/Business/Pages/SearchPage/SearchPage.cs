@@ -7,7 +7,7 @@ namespace TestCase1Epam.Business.Pages
 {
     public partial class SearchPage : BasePage
     {
-        public SearchPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
+        public SearchPage(IWebDriver driver) : base(driver) { }
 
         public IEnumerable<string> GetResultsText()
         {

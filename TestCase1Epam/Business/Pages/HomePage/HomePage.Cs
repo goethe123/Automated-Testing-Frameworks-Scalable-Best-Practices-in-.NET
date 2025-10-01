@@ -12,7 +12,7 @@ namespace TestCase1Epam.Business.Pages
 {
     public partial class HomePage : BasePage
     {
-        public HomePage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
+        public HomePage(IWebDriver driver) : base(driver) { }
 
         public void AcceptCookiesIfPresent()
         {

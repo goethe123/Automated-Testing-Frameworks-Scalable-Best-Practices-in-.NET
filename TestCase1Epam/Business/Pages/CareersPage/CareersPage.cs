@@ -14,7 +14,7 @@ namespace TestCase1Epam.Business.Pages
 {
     public partial class CareersPage : BasePage
     {
-        public CareersPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
+        public CareersPage(IWebDriver driver) : base(driver) { }
 
         public void SearchJob(string Keyword)
         {

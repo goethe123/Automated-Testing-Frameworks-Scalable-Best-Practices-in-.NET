@@ -17,9 +17,10 @@ namespace TestCase1Epam.Core.Hooks
         [SetUp]
         public void SetUpBase()
         {
+            //should do it with the web driver singleton? or create a new driver with every setup
             Driver =  WebDriverSingleton.Instance;
             Wait = new WebDriverWait(Driver,TimeSpan.FromSeconds(TestSettings.ExplicitWait));
-            Log.Info("Driver intialized Correctly");
+            Log.Info($"Driver intialized Correctly con wait de {TestSettings.ExplicitWait} segs ");
         }
 
         [TearDown]

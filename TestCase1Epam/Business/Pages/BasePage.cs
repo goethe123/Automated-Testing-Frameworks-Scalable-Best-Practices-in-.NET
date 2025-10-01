@@ -7,6 +7,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using TestCase1Epam.Core.Config;
 
 namespace TestCase1Epam.Busisness.Pages
 {
@@ -17,35 +18,38 @@ namespace TestCase1Epam.Busisness.Pages
         protected Actions Actions => new Actions(Driver);
 
 
-        protected BasePage(IWebDriver driver, WebDriverWait wait)
+        protected BasePage(IWebDriver driver)
         {
+            //should use web driver singleton here??
             Driver = driver;
-            Wait = wait;
+            Wait = new WebDriverWait(driver,TimeSpan.FromSeconds(TestSettings.ExplicitWait));
+        }
+
+        protected WebDriverWait GetWait(int? seconds = null)
+
+        {
+            return new WebDriverWait(Driver, TimeSpan.FromSeconds(seconds ?? TestSettings.ExplicitWait));
         }
         
 
-        protected IWebElement WaitAndFind(By locator)
+        protected IWebElement WaitAndFind(By locator, int? seconds = null)
         {
-            return Wait.Until(ExpectedConditions.ElementIsVisible(locator));
+            return GetWait(seconds).Until(ExpectedConditions.ElementIsVisible(locator));
         }
 
-        protected IWebElement WaitToClickable(By locator)
+        protected IWebElement WaitToClickable(By locator, int? seconds = null)
         {
-            return Wait.Until(ExpectedConditions.ElementToBeClickable(locator));
+            return GetWait(seconds).Until(ExpectedConditions.ElementToBeClickable(locator));
         }
 
-        protected IWebElement WaitToExist(By locator)
+        protected IWebElement WaitToExist(By locator, int? seconds = null)
         {
-            return Wait.Until(ExpectedConditions.ElementExists(locator));
+            return GetWait(seconds).Until(ExpectedConditions.ElementExists(locator));
         }
-        protected void Click(By locator)
+        protected void Click(By locator, int? seconds = null)
         {
-            Wait.Until(ExpectedConditions.ElementToBeClickable(locator)).Click();
+            GetWait(seconds).Until(ExpectedConditions.ElementToBeClickable(locator)).Click();
         }
        
-
-
-
-        //para todas las clases dependeran de base page, metodos que compartiran siempre se declaran aqui, solo los hijos acceden a ella
     }
 }
