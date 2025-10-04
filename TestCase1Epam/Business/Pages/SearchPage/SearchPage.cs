@@ -1,14 +1,11 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using TestCase1Epam.Pages;
+using TestCase1Epam.Core.Utils;
 
-
-namespace TestCase1Epam.Pages
+namespace TestCase1Epam.Business.Pages
 {
-    public partial class SearchPage : BasePage
+    public partial class SearchPage : WebDriverHelper
     {
-        public SearchPage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
+        public SearchPage(IWebDriver driver) : base(driver) { }
 
         public IEnumerable<string> GetResultsText()
         {

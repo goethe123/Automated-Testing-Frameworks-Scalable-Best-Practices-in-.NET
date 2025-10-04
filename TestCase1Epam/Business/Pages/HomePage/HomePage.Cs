@@ -1,17 +1,11 @@
-﻿using NUnit.Framework;
-using NUnit.Framework.Legacy;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Linq;
+﻿using OpenQA.Selenium;
+using TestCase1Epam.Core.Utils;
 
-namespace TestCase1Epam.Pages
+namespace TestCase1Epam.Business.Pages
 {
-    public partial class HomePage : BasePage
+    public partial class HomePage : WebDriverHelper
     {
-        public HomePage(IWebDriver driver, WebDriverWait wait) : base(driver, wait) { }
+        public HomePage(IWebDriver driver) : base(driver) { }
 
         public void AcceptCookiesIfPresent()
         {
