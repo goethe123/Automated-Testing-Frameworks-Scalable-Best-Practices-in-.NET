@@ -1,16 +1,9 @@
 ﻿using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using TestCase1Epam.Busisness.Pages;
+using TestCase1Epam.Core.Utils;
 
 namespace TestCase1Epam.Business.Pages
 {
-    public partial class InsightsPage : BasePage
+    public partial class InsightsPage : WebDriverHelper
 
     {
         public InsightsPage(IWebDriver driver) : base(driver)

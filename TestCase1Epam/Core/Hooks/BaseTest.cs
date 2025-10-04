@@ -1,5 +1,4 @@
-﻿using NUnit.Framework;
-using OpenQA.Selenium;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Support.UI;
 using log4net;
 using TestCase1Epam.Core.Config;
@@ -17,10 +16,9 @@ namespace TestCase1Epam.Core.Hooks
         [SetUp]
         public void SetUpBase()
         {
-            //should do it with the web driver singleton? or create a new driver with every setup
             Driver =  WebDriverSingleton.Instance;
             Wait = new WebDriverWait(Driver,TimeSpan.FromSeconds(TestSettings.ExplicitWait));
-            Log.Info($"Driver intialized Correctly con wait de {TestSettings.ExplicitWait} segs ");
+            Log.Info($"Driver intialized Correctly with a wait of {TestSettings.ExplicitWait} segs ");
         }
 
         [TearDown]

@@ -1,8 +1,5 @@
 ﻿using log4net;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Support.UI;
 using TestCase1Epam.Business.Pages;
-using NUnit.Framework;
 using TestCase1Epam.Core.Hooks;
 
 namespace TestCase1Epam.Tests
@@ -29,7 +26,7 @@ namespace TestCase1Epam.Tests
             search.OppenFirstViewAndApplyButton(4);
 
             Assert.That(search.ReturnResultBody().Contains(keyword.ToLower()));
-            Log.Info($"[PASS] ValidateUserCanSearchPosition passed correctly withthe {keyword} keyword");
+            Log.Info($"[PASS] ValidateUserCanSearchPosition passed correctly with the {keyword} keyword");
         }
 
         // Test #2:  search validations FALLAN
@@ -38,7 +35,7 @@ namespace TestCase1Epam.Tests
         [TestCase("cloud")]
         public void Validate_Global_Search_Returns_Correct_Results(string keyword)
         {
-            Log.Info($"2nd Test, Validate_Global_Searzch_Returns_Correct_Results with {keyword} keyword");
+            Log.Info($"2nd Test, Validate_Global_Search_Returns_Correct_Results with {keyword} keyword");
 
             var home = new HomePage(Driver);
             var search = new SearchPage(Driver);
@@ -47,10 +44,9 @@ namespace TestCase1Epam.Tests
             home.AcceptCookiesIfPresent();
             home.OpenSearch();
             home.Search(keyword);
-
             Assert.That(search.GetResultsText(), Is.All.Contains(keyword.ToLower()),
             $"All the results does not contain the keyword: {keyword}");
-            Log.Info("[PASS] Validate_Global_Searzch_Returns_Correct_Results passed correctly");
+            Log.Info("[PASS] Validate_Global_Search_Returns_Correct_Results passed correctly");
         }
 
         //  Test #3: File download Validation
@@ -64,10 +60,7 @@ namespace TestCase1Epam.Tests
             home.AcceptCookiesIfPresent();
             home.GoToAbout();
             about.ClickDownloadButton();
-
-            string filePath = Path.Combine(Core.Utils.FileHelpers.DownloadPath, expectedFileName);
-            bool fileExists = Core.Utils.FileHelpers.WaitForFileToBeDownloaded(filePath, 15);
-
+            bool fileExists = Core.Utils.FileHelpers.WaitForFileToBeDownloaded(expectedFileName, 15);
             Assert.That(fileExists, Is.True, $"File '{expectedFileName}' was not downloaded.");
             Log.Info("[PASS]  Validate_File_Download passed correctly");
         }
@@ -86,7 +79,6 @@ namespace TestCase1Epam.Tests
             string CarouselTitle = insights.TakeCarouselElementTitle();
             insights.ClickReadMoreButton();
             string ArticleTitle = insights.TakeArticleTitle();
-
             Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle), $" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
             Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
         }

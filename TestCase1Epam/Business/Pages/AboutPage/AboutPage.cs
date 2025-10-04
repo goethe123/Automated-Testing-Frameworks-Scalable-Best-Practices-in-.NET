@@ -1,13 +1,10 @@
 ﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using TestCase1Epam.Busisness.Pages;
+using TestCase1Epam.Core.Utils;
 
 namespace TestCase1Epam.Business.Pages
 {
-    public partial class AboutPage : BasePage
+    public partial class AboutPage : WebDriverHelper
     {
         public AboutPage(IWebDriver driver) : base(driver)
         { }

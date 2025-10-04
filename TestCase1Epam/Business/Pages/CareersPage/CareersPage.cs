@@ -1,18 +1,10 @@
-﻿using AngleSharp.Common;
-using NUnit.Framework;
-using NUnit.Framework.Legacy;
-using OpenQA.Selenium;
-using OpenQA.Selenium.Chrome;
+﻿using OpenQA.Selenium;
 using OpenQA.Selenium.Interactions;
-using OpenQA.Selenium.Support.UI;
-using SeleniumExtras.WaitHelpers;
-using System;
-using System.Linq;
-using TestCase1Epam.Busisness.Pages;
+using TestCase1Epam.Core.Utils;
 
 namespace TestCase1Epam.Business.Pages
 {
-    public partial class CareersPage : BasePage
+    public partial class CareersPage : WebDriverHelper
     {
         public CareersPage(IWebDriver driver) : base(driver) { }
 

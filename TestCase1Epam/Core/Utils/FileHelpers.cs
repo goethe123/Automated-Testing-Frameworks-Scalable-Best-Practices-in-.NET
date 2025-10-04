@@ -1,17 +1,21 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using TestCase1Epam.Core.Config;
 
 namespace TestCase1Epam.Core.Utils
 {
     public  class FileHelpers
     {
-        public static readonly string DownloadPath = @"C:\Users\GoetheRamirez\Downloads";
+        public static readonly string DownloadPath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, TestSettings.Downloads);
 
-        public static bool WaitForFileToBeDownloaded(string filePath, int seconds)
+        static FileHelpers()
         {
+            Directory.CreateDirectory(DownloadPath);
+        }
+
+
+
+        public static bool WaitForFileToBeDownloaded(string fileName, int seconds)
+        {
+            string filePath = Path.Combine(DownloadPath, fileName);
             for (int i = 0; i < seconds * 2; i++)
             {
                 if (File.Exists(filePath) && !File.Exists(filePath + ".crdownload"))

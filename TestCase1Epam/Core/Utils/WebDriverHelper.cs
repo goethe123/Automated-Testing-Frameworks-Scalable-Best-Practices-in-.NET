@@ -2,25 +2,19 @@
 using OpenQA.Selenium.Interactions;
 using OpenQA.Selenium.Support.UI;
 using SeleniumExtras.WaitHelpers;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using TestCase1Epam.Core.Config;
 
-namespace TestCase1Epam.Busisness.Pages
+namespace TestCase1Epam.Core.Utils
 {
-    public abstract class BasePage
+    public abstract class WebDriverHelper
     {
         protected readonly IWebDriver Driver;
         protected readonly WebDriverWait Wait;
         protected Actions Actions => new Actions(Driver);
 
 
-        protected BasePage(IWebDriver driver)
+        protected WebDriverHelper(IWebDriver driver)
         {
-            //should use web driver singleton here??
             Driver = driver;
             Wait = new WebDriverWait(driver,TimeSpan.FromSeconds(TestSettings.ExplicitWait));
         }
