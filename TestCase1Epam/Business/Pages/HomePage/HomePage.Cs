@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Interactions;
 using TestCase1Epam.Core.Utils;
 
 namespace TestCase1Epam.Business.Pages
@@ -45,6 +46,11 @@ namespace TestCase1Epam.Business.Pages
         public void GoToInsights()
         {
             WaitToClickable(InsightsButton).Click();
+        }
+
+        public void GoToServices()
+        {
+            WaitToClickable(ServicesButton).Click();
         }
     }
 

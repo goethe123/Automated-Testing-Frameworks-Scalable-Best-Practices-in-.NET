@@ -1,4 +1,5 @@
 ﻿using log4net;
+using OpenQA.Selenium;
 using TestCase1Epam.Business.Pages;
 using TestCase1Epam.Core.Hooks;
 
@@ -7,7 +8,7 @@ namespace TestCase1Epam.Tests
     [TestFixture]
     public class GlobalSearchTests : BaseTest
     {
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);     
+        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
 
         // Test #1: 
         [TestCase("java")]
@@ -81,6 +82,37 @@ namespace TestCase1Epam.Tests
             string ArticleTitle = insights.TakeArticleTitle();
             Assert.That(ArticleTitle, Is.EqualTo(CarouselTitle), $" The Article's Title ('{ArticleTitle}') does not match with the Carousel's title ('{CarouselTitle}').");
             Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
+        }
+
+        //testcase 5  locators verification
+
+        
+        [TestCase("Responsible AI")]
+        [TestCase("Generative AI")]
+
+        public void LocatorsVerification(string serviceName)
+        {
+            var home = new HomePage(Driver);
+            var services = new ServicesPage(Driver);
+            var AI = new ArtificialInteligencePage(Driver);
+            
+            Driver.Navigate().GoToUrl("https://www.epam.com/");
+            home.AcceptCookiesIfPresent();
+            home.GoToServices();
+            services.GoToArtificialInteligence();
+            By serviceButton = serviceName switch
+             {
+               "Responsible AI" => AI.ResponsibleAIButton,
+               "Generative AI" => AI.GenerativeAiButton,
+             };
+
+            string buttonText = AI.ClickServiceButtonAndGetText(serviceButton);
+            string pageTitle = AI.GetPageTitle();
+            Assert.That(pageTitle, Is.EqualTo(buttonText),$"Expected page title '{pageTitle}' to match clicked button '{buttonText}'");
+            bool OurExperience = AI.OurRelatedExperticeValidation();
+            Assert.That(OurExperience, Is.True);
+            Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
+
         }
     }
 }
