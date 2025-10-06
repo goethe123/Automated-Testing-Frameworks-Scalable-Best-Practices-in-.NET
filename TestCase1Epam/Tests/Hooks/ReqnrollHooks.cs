@@ -11,7 +11,7 @@ namespace TestCase1Epam.Tests.Hooks
         [BeforeScenario(Order = 0)]
         public void BeforeScenario()
         {
-            Console.WriteLine("Before Scenario ejecutado");
+            Console.WriteLine("Before Scenario executed");
            InitializeDriver();
         }
 
@@ -19,7 +19,7 @@ namespace TestCase1Epam.Tests.Hooks
         public void AfterScenario()
         {
             Cleanup();
-            Console.WriteLine("AfterScenarioEjecutado");
+            Console.WriteLine("AfterScenario Executed");
         }
     }
 }

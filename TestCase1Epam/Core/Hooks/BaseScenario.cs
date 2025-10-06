@@ -19,14 +19,14 @@ namespace TestCase1Epam.Core.Hooks
         {
             Driver = WebDriverSingleton.Instance;
             ScenarioContext["Driver"] = Driver;
-            Console.WriteLine("driver inicializado correctamente");
+            Console.WriteLine("driver initialized correctly");
         }
 
         public void Cleanup()
         {
             Driver?.Quit();
             WebDriverSingleton.Quit();
-            Console.WriteLine("driver cerrado correctamente");
+            Console.WriteLine("driver closed correctly");
         }
 
     }

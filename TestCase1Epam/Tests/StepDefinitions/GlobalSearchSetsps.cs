@@ -21,7 +21,7 @@ namespace TestCase1Epam.Tests.StepDefinitions
         [Given(@"I navigate to the EPAM website")]
         public void GivenINavigateToTheEPAMWebsite()
         {
-            Console.WriteLine("driver navegando a epam.com");
+            Console.WriteLine("driver navigating to epam.com");
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             _home = new HomePage(Driver);
             _careers = new CareersPage(Driver);
