@@ -4,7 +4,7 @@ namespace TestCase1Epam.Core.Drivers
 {
     public static class WebDriverSingleton
     {
-        private static IWebDriver _instance;
+        private static IWebDriver? _instance;
         private static readonly object _lock = new();
 
         public static IWebDriver Instance
@@ -26,9 +26,14 @@ namespace TestCase1Epam.Core.Drivers
         }
         public static void Quit()
         {
-            _instance.Quit();
-            _instance?.Dispose();
-            _instance = null;
+           if(_instance != null)
+            {
+                _instance.Quit();
+                _instance.Dispose();
+                _instance = null;   
+            }
+           
+            
         }
     }
 }

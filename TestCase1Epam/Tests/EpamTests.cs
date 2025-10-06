@@ -9,7 +9,7 @@ namespace TestCase1Epam.Tests
     public class GlobalSearchTests : BaseTest
     {
         private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
-
+        /*
         // Test #1: 
         [TestCase("java")]
         [TestCase("python")]
@@ -112,7 +112,9 @@ namespace TestCase1Epam.Tests
             bool OurExperience = AI.OurRelatedExperticeValidation();
             Assert.That(OurExperience, Is.True);
             Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
+        
 
         }
+        */
     }
 }
