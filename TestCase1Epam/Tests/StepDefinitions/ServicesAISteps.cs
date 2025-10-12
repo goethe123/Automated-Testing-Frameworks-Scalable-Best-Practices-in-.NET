@@ -10,12 +10,10 @@ namespace TestCase1Epam.Tests.StepDefinitions
     public class ServicesAISteps : BaseScenario
     {
         private HomePage _home;
-        private CareersPage _careers;
         private ServicesPage _services;
         private ArtificialInteligencePage _ai;
         string buttonText;
         string pageTitle;
-        bool OurExperience;
 
         protected ServicesAISteps(ScenarioContext context) : base(context)
         {
@@ -28,7 +26,6 @@ namespace TestCase1Epam.Tests.StepDefinitions
             Console.WriteLine("driver navigating to epam.com");
             Driver.Navigate().GoToUrl("https://www.epam.com/");
             _home = new HomePage(Driver);
-            _careers = new CareersPage(Driver);
             _services = new ServicesPage(Driver);
             _ai = new ArtificialInteligencePage(Driver);
         }
@@ -61,6 +58,7 @@ namespace TestCase1Epam.Tests.StepDefinitions
                 _=> throw new ArgumentException("invalid service Name")
             };
              buttonText = _ai.ClickServiceButtonAndGetText(serviceButton);
+            //manda a metodo esto y solo dale el parametro del button q quieres
         }
 
         [Then(@"I should see the page title ""(.*)""")]
@@ -75,6 +73,7 @@ namespace TestCase1Epam.Tests.StepDefinitions
         {
             bool OurExperience = _ai.OurRelatedExperticeValidation();
             Assert.That(OurExperience, Is.True);
+            //meter el resultado del metodo directo en el assert
         }
     }
 }
