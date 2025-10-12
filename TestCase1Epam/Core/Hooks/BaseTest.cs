@@ -13,6 +13,8 @@ namespace TestCase1Epam.Core.Hooks
         protected WebDriverWait Wait;
         protected readonly ILog Log = LogManager.GetLogger(typeof(BaseTest));
 
+
+
         [SetUp]
         public void SetUpBase()
         {
