@@ -18,6 +18,7 @@ namespace TestCase1Epam.Core.Hooks
         [SetUp]
         public void SetUpBase()
         {
+            log4net.Config.XmlConfigurator.Configure(new FileInfo("Log.config"));
             Driver =  WebDriverSingleton.Instance;
             Wait = new WebDriverWait(Driver,TimeSpan.FromSeconds(TestSettings.ExplicitWait));
             Log.Info($"Driver intialized Correctly with a wait of {TestSettings.ExplicitWait} segs ");

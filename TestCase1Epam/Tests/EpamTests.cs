@@ -8,7 +8,6 @@ namespace TestCase1Epam.Tests
     [TestFixture]
     public class GlobalSearchTests : BaseTest
     {
-        private static readonly ILog Log = LogManager.GetLogger(System.Reflection.MethodBase.GetCurrentMethod().DeclaringType);
         
         // Test #1: 
         [TestCase("java")]
@@ -114,7 +113,6 @@ namespace TestCase1Epam.Tests
             Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
         
 
-        }
-        
+        }       
     }
 }
