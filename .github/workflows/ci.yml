@@ -3,98 +3,55 @@ name: CI - TAF Tests Pipeline
 on:
 
   pull_request:
-
     branches:
-
       - main
 
   schedule:
-
     - cron: "0 3 * * *"
 
   workflow_dispatch:
-
     inputs:
-
       browser:
-
         description: "Choose browser for UI tests"
-
         required: true
-
         default: "chrome"
-
         type: choice
-
         options:
-
           - chrome
-
           - firefox
-
           - edge
 
 jobs:
-
   build-and-test:
-
     runs-on: windows-latest
-
     env:
-
       DOTNET_CLI_TELEMETRY_OPTOUT: 1
-
       DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-
       Browser: ${{ github.event.inputs.browser || 'chrome' }}
 
     steps:
-
       - name:  Checkout repository
-
-        uses: actions/checkout@v3
-
+        uses: actions/checkout@v4
       - name:  Setup .NET
-
-        uses: actions/setup-dotnet@v3
-
+        uses: actions/setup-dotnet@v4
         with:
-
           dotnet-version: '9.0.x'
-
       - name:  Restore dependencies
-
         run: dotnet restore
-
       - name:  Run API Tests
-
         continue-on-error: true
-
         run: dotnet test --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
-
       - name:  Run UI Tests
-
         run: dotnet test --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
-
       - name:  Upload Test Results
-
-        uses: actions/upload-artifact@v3
-
+        uses: actions/upload-artifact@v4
         with:
-
           name: TestResults
-
           path: TestResults
-
       - name:  Upload Screenshots
-
         if: always()
-
-        uses: actions/upload-artifact@v3
-
+        uses: actions/upload-artifact@v4
         with:
-
           name: Screenshots
-
           path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
  
