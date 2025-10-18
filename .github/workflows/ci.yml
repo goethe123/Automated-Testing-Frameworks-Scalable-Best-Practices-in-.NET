@@ -37,12 +37,15 @@ jobs:
         with:
           dotnet-version: '9.0.x'
       - name:  Restore dependencies
-        run: dotnet restore
+        run: dotnet restore TestCase1Epam/TestCase1Epam.csproj
+
       - name:  Run API Tests
         continue-on-error: true
-        run: dotnet test --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
+        run: dotnet test TestCase1Epam/TestCase1Epam.csproj --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
+
       - name:  Run UI Tests
-        run: dotnet test --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
+        run: dotnet test TestCase1Epam/TestCase1Epam.csproj --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
+
       - name:  Upload Test Results
         uses: actions/upload-artifact@v4
         with:
