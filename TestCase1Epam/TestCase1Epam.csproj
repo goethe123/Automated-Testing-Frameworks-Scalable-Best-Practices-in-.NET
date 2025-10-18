@@ -11,13 +11,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Log.config" />
 	  <FrameworkReference Include="Microsoft.WindowsDesktop.App.WindowsForms" />
   </ItemGroup>
 
   <ItemGroup>
-    <Content Include="Core\Config\Log.config">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    <Content Include="Log.config">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
   </ItemGroup>
 
@@ -34,12 +33,13 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
-    <PackageReference Include="NUnit3TestAdapter" Version="5.1.0" />
-    <PackageReference Include="Reqnroll" Version="3.1.1" />
-    <PackageReference Include="Reqnroll.NUnit" Version="3.1.1" />
+    <PackageReference Include="NUnit3TestAdapter" Version="5.2.0" />
+    <PackageReference Include="Reqnroll" Version="3.1.2" />
+    <PackageReference Include="Reqnroll.NUnit" Version="3.1.2" />
+    <PackageReference Include="RestSharp" Version="112.1.0" />
     <PackageReference Include="Selenium.Support" Version="4.36.0" />
     <PackageReference Include="Selenium.WebDriver" Version="4.36.0" />
-    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="141.0.7390.5400" />
+    <PackageReference Include="Selenium.WebDriver.ChromeDriver" Version="141.0.7390.7600" />
     <PackageReference Include="WebDriverManager" Version="2.17.6" />
   </ItemGroup>
 
