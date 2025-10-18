@@ -84,8 +84,7 @@ namespace TestCase1Epam.Tests
         }
 
         //testcase 5  locators verification
-
-        
+ 
         [TestCase("Responsible AI")]
         [TestCase("Generative AI")]
 

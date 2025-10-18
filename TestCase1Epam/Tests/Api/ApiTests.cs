@@ -39,10 +39,11 @@ namespace TestCase1Epam.Tests.Api
         {
             var request = new UserRequestBuilder("/users", RestSharp.Method.Get).Build();
             var response = await _client.ExecuteAsync(request);
+            var header = response.ContentHeaders.First();
 
             Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.OK));
             Assert.That(response.ContentType, Is.Not.Null.Or.Empty);
-            Assert.That(response.ContentType, Does.Contain("application/json"));
+            Assert.That(header.Value.ToString(),Is.EqualTo("application/json; charset=utf-8"));
         }
 
         [Test]
@@ -62,11 +63,14 @@ namespace TestCase1Epam.Tests.Api
         public async Task ValidateUserCanBeCreated()
         {
             var newUser = new { name = "Goethe", Username = "goet" };
-            var request = new UserRequestBuilder("/users", RestSharp.Method.Post).WithJsonBody(newUser).Build(); ;
+            var request = new UserRequestBuilder("/users", RestSharp.Method.Post).WithJsonBody(newUser).Build(); 
             var response = await _client.ExecuteAsync(request);
 
             Assert.That(response.StatusCode, Is.EqualTo(System.Net.HttpStatusCode.Created));
-            Assert.That(response.Content, Does.Contain("id"));
+            var createdUser = JsonConvert.DeserializeObject<UserModel>(response.Content);
+            Assert.That(string.IsNullOrEmpty(response.Content), Is.False);
+            Assert.That(createdUser.Id, Is.Not.EqualTo(0));
+            
 
         }
 
