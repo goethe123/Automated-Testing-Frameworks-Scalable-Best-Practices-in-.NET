@@ -38,24 +38,23 @@ jobs:
 
 
   api-tests:
-        runs-on: windows-latest
-        needs: build
-
-        steps:
+       runs-on: windows-latest
+       needs: build
+       steps:
          - name: Checkout repository
            uses: actions/checkout@v4
 
-         - name: Setup .Net
-           uses: actions/setup-dotnet@4
+         - name: Setup .NET
+           uses: actions/setup-dotnet@v4
            with:
-             dotnet version: '9.0.x'
+             dotnet-version: '9.0.x'
 
-         - name: Run Api Tests
+         - name: Run API Tests
            continue-on-error: true
-           run:  dotnet test TestCase1Epam/TestCase1Epam.csproj --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
+           run: dotnet test TestCase1Epam/TestCase1Epam.csproj --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
 
-         - name: Upload Api Test Results
-           uses: actions/upload-artifcat@v4
+         - name: Upload API Test Results
+           uses: actions/upload-artifact@v4
            with:
              name: API_TestResults
              path: TestResults
