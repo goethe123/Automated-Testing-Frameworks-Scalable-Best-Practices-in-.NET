@@ -22,37 +22,79 @@ on:
           - edge
 
 jobs:
-  build-and-test:
+  build:
     runs-on: windows-latest
-    env:
-      DOTNET_CLI_TELEMETRY_OPTOUT: 1
-      DOTNET_SKIP_FIRST_TIME_EXPERIENCE: 1
-      Browser: ${{ github.event.inputs.browser || 'chrome' }}
-
     steps:
       - name:  Checkout repository
         uses: actions/checkout@v4
+
       - name:  Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
+
       - name:  Restore dependencies
         run: dotnet restore TestCase1Epam/TestCase1Epam.csproj
 
-      - name:  Run API Tests
-        continue-on-error: true
-        run: dotnet test TestCase1Epam/TestCase1Epam.csproj --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
 
-      - name:  Run UI Tests
-        run: dotnet test TestCase1Epam/TestCase1Epam.csproj --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
+  api-tests:
+        runs-on: windows-latest
+        needs: build
 
-      - name:  Upload Test Results
-        uses: actions/upload-artifact@v4
-        with:
-          name: TestResults
-          path: TestResults
-      - name:  Upload Screenshots
-        if: always()
+        steps:
+         - name: Checkout repository
+           uses: actions/checkout@v4
+
+         - name: Setup .Net
+           uses: actions/setup-dotnet@4
+           with:
+             dotnet version: '9.0.x'
+
+         - name: Run Api Tests
+           continue-on-error: true
+           run:  dotnet test TestCase1Epam/TestCase1Epam.csproj --filter "Category=API" --logger "trx;LogFileName=API_TestResults.trx" --results-directory TestResults
+
+         - name: Upload Api Test Results
+           uses: actions/upload-artifcat@v4
+           with:
+             name: API_TestResults
+             path: TestResults
+
+  ui-tests:
+
+        runs-on: windows-latest
+        needs: build
+        env:
+         Browser: ${{ github.event.inputs.browser || 'chrome' }}
+
+        steps:
+          - name: Checkout repository
+            uses: actions/checkout@v4
+
+          - name: Setup .NET
+            uses: actions/setup-dotnet@v4
+            with:
+              dotnet-version: '9.0.x'
+
+          - name: Run UI Tests
+            run: dotnet test TestCase1Epam/TestCase1Epam.csproj --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
+
+          - name: Upload UI Test Results
+            uses: actions/upload-artifact@v4
+
+            with:
+              name: UI_TestResults
+              path: TestResults
+
+  evidences:
+    runs-on: windows-latest
+    needs: [api-tests, ui-tests]
+    if: always()
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Upload Screenshots
         uses: actions/upload-artifact@v4
         with:
           name: Screenshots
