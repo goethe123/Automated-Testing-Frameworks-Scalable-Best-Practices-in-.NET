@@ -94,6 +94,15 @@ jobs:
               name: UI_TestResults
               path: TestResults
 
+          - name: Upload Screenshots
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: Screenshots
+              path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
+              if-no-files-found: warn
+
+
   evidences:
     runs-on: windows-latest
     needs: [api-tests, ui-tests]
@@ -102,12 +111,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload Screenshots
+      - name: Download UI Artifacts
+        if: always()
+        uses: actions/download-artifact@v4
+        with:
+          name: screenshots
+          path: ./Screenshots
+
+      - name: Upload Screenshots to Final Bundle
         if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Screenshots
-          path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
+          path: ./Screenshots
+  
+
+
+
+     
 
 
  
