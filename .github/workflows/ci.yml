@@ -115,7 +115,7 @@ jobs:
         if: always()
         uses: actions/download-artifact@v4
         with:
-          name: screenshots
+          name: Screenshots
           path: ./Screenshots
 
       - name: Upload Screenshots to Final Bundle
