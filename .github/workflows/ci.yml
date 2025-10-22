@@ -103,16 +103,11 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Upload Screenshots
+        if: always()
         uses: actions/upload-artifact@v4
         with:
           name: Screenshots
-          path: "TestCase1Epam/Artifacts/Screenshots/**/*.png"
-          if-no-files-found: warn
-
-      - name: Upload Screenshots
-        uses: actions/upload-artifact@v4
-        with: 
-          name: ExtentReport
           path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
+
 
  
