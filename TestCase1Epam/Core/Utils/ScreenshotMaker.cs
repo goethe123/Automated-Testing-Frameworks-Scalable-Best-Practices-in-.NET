@@ -18,6 +18,16 @@ namespace TestCase1Epam.Core.Utils
             return name;
         }
 
+        private static string GetProjectArtifactsPath(string folder)
+        {
+            var BaseDir = AppDomain.CurrentDomain.BaseDirectory;
+            var ProjectRoot = Path.GetFullPath(Path.Combine(BaseDir, @"..\..\..\.."));
+            var fullPath = Path.Combine(ProjectRoot, "Artifacts", "Screenshots", folder);
+            Directory.CreateDirectory(fullPath);
+            return fullPath;
+        }
+
+
         public static string TakeBrowserScreenshot(IWebDriver driver, string testName)
         {
             var safeName = SanitizeFileName(testName);
