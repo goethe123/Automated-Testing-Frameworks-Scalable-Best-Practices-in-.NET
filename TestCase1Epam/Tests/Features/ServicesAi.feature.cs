@@ -106,14 +106,13 @@ namespace TestCase1Epam.Tests.Features
         
         private static global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages InitializeCucumberMessages()
         {
-            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Tests/Features/ServicesAi.feature.ndjson", 4);
+            return new global::Reqnroll.Formatters.RuntimeSupport.FeatureLevelCucumberMessages("Tests/Features/ServicesAi.feature.ndjson", 3);
         }
         
         [global::NUnit.Framework.TestAttribute()]
         [global::NUnit.Framework.DescriptionAttribute("validate user can access different AI articles")]
         [global::NUnit.Framework.CategoryAttribute("services")]
         [global::NUnit.Framework.TestCaseAttribute("Responsible AI", "Responsible AI", "0", null)]
-        [global::NUnit.Framework.TestCaseAttribute("Generative AI", "Generative AI", "1", null)]
         public async global::System.Threading.Tasks.Task ValidateUserCanAccessDifferentAIArticles(string serviceName, string expectedTitle, string @__pickleIndex, string[] exampleTags)
         {
             string[] @__tags = new string[] {

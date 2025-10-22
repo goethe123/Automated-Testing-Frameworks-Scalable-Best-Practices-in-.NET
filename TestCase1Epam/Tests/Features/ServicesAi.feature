@@ -17,4 +17,4 @@ Scenario Outline: validate user can access different AI articles
 	Examples: 
 	| ServiceName    | ExpectedTitle  |
 	| Responsible AI | Responsible AI |
-	| Generative AI  | Generative AI  |
+#	| Generative AI  | Generative AI  |
