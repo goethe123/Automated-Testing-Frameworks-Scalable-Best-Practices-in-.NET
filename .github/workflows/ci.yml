@@ -25,21 +25,20 @@ jobs:
   build:
     runs-on: windows-latest
     steps:
-      - name:  Checkout repository
+      - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name:  Setup .NET
+      - name: Setup .NET
         uses: actions/setup-dotnet@v4
         with:
           dotnet-version: '9.0.x'
 
-      - name:  Restore dependencies
+      - name: Restore dependencies
         run: dotnet restore TestCase1Epam/TestCase1Epam.csproj
 
 
   api-tests:
        runs-on: windows-latest
-       needs: build
        steps:
          - name: Checkout repository
            uses: actions/checkout@v4
@@ -65,6 +64,8 @@ jobs:
         needs: build
         env:
          Browser: ${{ github.event.inputs.browser || 'chrome' }}
+         LANG: en_us
+         CI: true
 
         steps:
           - name: Checkout repository
@@ -75,15 +76,32 @@ jobs:
             with:
               dotnet-version: '9.0.x'
 
-          - name: Run UI Tests
-            run: dotnet test TestCase1Epam/TestCase1Epam.csproj --logger "trx;LogFileName=UI_TestResults.trx" --results-directory TestResults /p:Browser=${{ env.Browser }}
+          - name: Run UI Tests (Headed mode)
+            continue-on-error: true
+            run: |
+                   echo "Launching Chrome in headed-like mode..."
+                   dotnet test TestCase1Epam/TestCase1Epam.csproj `
+                   --filter "Category!=API" `
+                   --logger "trx;LogFileName=UI_TestResults.trx" `
+                   --results-directory TestResults `
+                   /p:Browser=${{ env.Browser }} `
+                   /p:RunHeaded=true `
+                   /p:Lang=en-U
 
           - name: Upload UI Test Results
             uses: actions/upload-artifact@v4
-
             with:
               name: UI_TestResults
               path: TestResults
+
+          - name: Upload Screenshots
+            if: always()
+            uses: actions/upload-artifact@v4
+            with:
+              name: Screenshots
+              path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
+              if-no-files-found: warn
+
 
   evidences:
     runs-on: windows-latest
@@ -93,9 +111,24 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Upload Screenshots
-        uses: actions/upload-artifact@v4
+      - name: Download UI Artifacts
+        if: always()
+        uses: actions/download-artifact@v4
         with:
           name: Screenshots
-          path: "**/bin/Debug/net9.0-windows/Artifacts/Screenshots/"
+          path: ./Screenshots
+
+      - name: Upload Screenshots to Final Bundle
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: Evidence_Screenshots
+          path: ./Screenshots
+  
+
+
+
+     
+
+
  

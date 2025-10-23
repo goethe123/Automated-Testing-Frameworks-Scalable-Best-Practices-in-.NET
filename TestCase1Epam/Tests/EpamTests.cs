@@ -83,10 +83,9 @@ namespace TestCase1Epam.Tests
             Log.Info("[PASS]  ValidateCarouselTitle passed correctly");
         }
 
-        //testcase 5  locators verification
  
         [TestCase("Responsible AI")]
-        [TestCase("Generative AI")]
+        //[TestCase("Generative AI")] generative AI button has been removed
 
         public void LocatorsVerification(string serviceName)
         {

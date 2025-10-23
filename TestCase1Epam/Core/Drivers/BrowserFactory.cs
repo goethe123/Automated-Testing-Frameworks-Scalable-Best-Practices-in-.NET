@@ -11,8 +11,10 @@ namespace TestCase1Epam.Core.Drivers
     {
         public static IWebDriver Create()
         {
+            string browser = TestSettings.Browser.ToLower();
+            bool isCI = Environment.GetEnvironmentVariable("CI") == "true";
             
-             switch (TestSettings.Browser.ToLower())
+             switch (browser)
             {
                 case "firefox":
                     var firefoxOptions = new FirefoxOptions();
@@ -31,10 +33,23 @@ namespace TestCase1Epam.Core.Drivers
                     return new EdgeDriver(edgeOptions);
                 default: // Chrome
                     var options = new ChromeOptions();
-                    options.AddArgument("--start-maximized");
+                    if (isCI)
+                    {
+                        options.AddArgument("--headless=new");
+                        options.AddArgument("--window-size=1920");
+                        options.AddArgument("--lang=en-US");
+                        options.AddArgument("--disable-gpu");
+                        options.AddArgument("--no-sandbox");
+                        options.AddArgument("disable-dev-shm-usage");
+                    }
+                    else
+                    {
+                        options.AddArgument("--start-maximized");
+                    }
                     options.AddUserProfilePreference("download.default_directory", FileHelpers.DownloadPath);
                     options.AddUserProfilePreference("download.prompt_for_download", false);
                     options.AddUserProfilePreference("plugins.always_open_pdf_externally", true);
+
                     return new ChromeDriver(options);
             }
         }
